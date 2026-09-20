@@ -1,0 +1,38 @@
+# docker-compose.yml
+# Servicios: MongoDB + Backend (Express).
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: gestion_empleados_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+
+  backend:
+    build: ./backend
+    container_name: gestion_empleados_backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URI: mongodb://mongo:27017/usuarios_db
+      PORT: 3000
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app_network
+
+volumes:
+  mongo_data:
+
+networks:
+  app_network:
+    driver: bridge
