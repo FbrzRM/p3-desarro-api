@@ -5,6 +5,8 @@ import swaggerUi from 'swagger-ui-express';
 import empleadosRoutes from './routes/empleados.routes.js';
 import openapiSpec from './config/swagger.js';
 import { errorHandler, notFoundHandler } from './middlewares/error.middleware.js';
+import { discordNotifier } from './middlewares/discord-notifier.js';
+
 
 const app = express();
 
@@ -14,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 app.use(express.json());
+app.use(discordNotifier);
 app.use(cors());
 
 app.set('nombreApp', 'Gestión de empleados');
