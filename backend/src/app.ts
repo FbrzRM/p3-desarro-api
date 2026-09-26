@@ -8,7 +8,11 @@ import { errorHandler, notFoundHandler } from './middlewares/error.middleware.js
 
 const app = express();
 
-app.use(morgan('dev'));
+// El logging por petición se desactiva en producción/carga para no penalizar
+// la latencia (cada log a stdout añade coste bajo alto tráfico).
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
 app.use(express.json());
 app.use(cors());
 

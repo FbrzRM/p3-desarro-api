@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-primary mb-4">
+  <div class="container">
+    <span class="navbar-brand mb-0 h1">Gestión de Personal</span>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- Banner de error global (viene del servicio, vía async) -->
+  <div
+    class="alert alert-danger"
+    *ngIf="error$ | async as error"
+    role="alert"
+  >
+    {{ error }}
+  </div>
+
+  <div class="row g-4">
+    <!-- Componente Dumb: formulario (crear / editar) -->
+    <div class="col-lg-4">
+      <app-employee-form
+        [employee]="selected"
+        [disabled]="(loading$ | async) ?? false"
+        (save)="onSave($event)"
+        (cancel)="onCancel()"
+      ></app-employee-form>
+    </div>
+
+    <!-- Componente Dumb: tabla de datos -->
+    <div class="col-lg-8">
+      <app-employee-list
+        [employees]="employees$ | async"
+        [loading]="(loading$ | async) ?? false"
+        (edit)="onEdit($event)"
+        (remove)="onRemove($event)"
+      ></app-employee-list>
+    </div>
+  </div>
+</div>

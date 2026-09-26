@@ -1,5 +1,5 @@
 # docker-compose.yml
-# Servicios: MongoDB + Backend (Express).
+# Servicios: MongoDB + Backend (Express) + Frontend (Angular).
 
 services:
   mongo:
@@ -22,6 +22,7 @@ services:
     environment:
       MONGO_URI: mongodb://mongo:27017/usuarios_db
       PORT: 3000
+      NODE_ENV: production
     depends_on:
       - mongo
     volumes:
@@ -29,6 +30,43 @@ services:
       - /app/node_modules
     networks:
       - app_network
+
+  frontend:
+    build: ./frontend
+    container_name: gestion_empleados_frontend
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - app_network
+
+  # Servicio de pruebas de estrés (Fase B). No arranca con `docker compose up`;
+  # se ejecuta bajo demanda con el perfil "stress".
+  artillery:
+    image: artilleryio/artillery:latest
+    container_name: gestion_empleados_artillery
+    profiles: ["stress"]
+    depends_on:
+      - backend
+    networks:
+      - app_network
+    working_dir: /scripts
+    volumes:
+      - ./:/scripts
+    # Se sobreescribe el target del .yml (localhost) por el nombre de red del
+    # backend dentro de Docker, manteniendo el stress-test.yml verbatim.
+    command:
+      - "run"
+      - "--overrides"
+      - '{"config":{"target":"http://backend:3000"}}'
+      - "--output"
+      - "report.json"
+      - "stress-test.yml"
 
 volumes:
   mongo_data:

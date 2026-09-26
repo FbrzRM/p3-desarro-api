@@ -1,0 +1,96 @@
+<div class="card shadow-sm">
+  <div class="card-header">
+    {{ isEditing ? 'Editar empleado' : 'Nuevo empleado' }}
+  </div>
+  <div class="card-body">
+    <form #f="ngForm" (ngSubmit)="f.valid && onSubmit(f)" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input
+          id="nombre"
+          name="nombre"
+          class="form-control"
+          [(ngModel)]="model.nombre"
+          required
+          minlength="3"
+          [disabled]="disabled"
+          #nombre="ngModel"
+        />
+        <div class="text-danger small" *ngIf="nombre.invalid && nombre.touched">
+          El nombre debe tener al menos 3 caracteres.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="cargo">Cargo</label>
+        <input
+          id="cargo"
+          name="cargo"
+          class="form-control"
+          [(ngModel)]="model.cargo"
+          required
+          minlength="2"
+          [disabled]="disabled"
+          #cargo="ngModel"
+        />
+        <div class="text-danger small" *ngIf="cargo.invalid && cargo.touched">
+          El cargo debe tener al menos 2 caracteres.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="departamento">Departamento</label>
+        <input
+          id="departamento"
+          name="departamento"
+          class="form-control"
+          [(ngModel)]="model.departamento"
+          required
+          minlength="2"
+          [disabled]="disabled"
+          #departamento="ngModel"
+        />
+        <div
+          class="text-danger small"
+          *ngIf="departamento.invalid && departamento.touched"
+        >
+          El departamento debe tener al menos 2 caracteres.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="sueldo">Sueldo</label>
+        <input
+          id="sueldo"
+          name="sueldo"
+          type="number"
+          class="form-control"
+          [(ngModel)]="model.sueldo"
+          required
+          min="0.01"
+          step="0.01"
+          [disabled]="disabled"
+          #sueldo="ngModel"
+        />
+        <div class="text-danger small" *ngIf="sueldo.invalid && sueldo.touched">
+          El sueldo debe ser un valor positivo.
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="disabled || f.invalid">
+          {{ isEditing ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button
+          *ngIf="isEditing"
+          type="button"
+          class="btn btn-secondary"
+          [disabled]="disabled"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

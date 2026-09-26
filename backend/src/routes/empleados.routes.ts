@@ -14,28 +14,30 @@ const router = Router();
 const repository = new MongooseEmployeeRepository();
 const controller = new EmpleadoController(repository);
 
-router.get('/empleados', asyncHandler(controller.getEmpleados));
+// Se registran las rutas en español (/empleados) y su alias en inglés
+// (/employees) para el escenario de estrés de Artillery de la Fase B.
+router.get(['/empleados', '/employees'], asyncHandler(controller.getEmpleados));
 
 router.get(
-  '/empleados/:id',
+  ['/empleados/:id', '/employees/:id'],
   validate({ params: employeeIdParamSchema }),
   asyncHandler(controller.getEmpleadoById),
 );
 
 router.post(
-  '/empleados',
+  ['/empleados', '/employees'],
   validate({ body: createEmployeeSchema }),
   asyncHandler(controller.addEmpleado),
 );
 
 router.put(
-  '/empleados/:id',
+  ['/empleados/:id', '/employees/:id'],
   validate({ params: employeeIdParamSchema, body: updateEmployeeSchema }),
   asyncHandler(controller.updateEmpleado),
 );
 
 router.delete(
-  '/empleados/:id',
+  ['/empleados/:id', '/employees/:id'],
   validate({ params: employeeIdParamSchema }),
   asyncHandler(controller.deleteEmpleado),
 );

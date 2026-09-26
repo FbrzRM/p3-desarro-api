@@ -9,8 +9,9 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    // Tipos globales de Node (process, etc.). @types/node ya está en devDependencies.
-    "types": ["node"],
+    // Tipos globales de Node (process, etc.) y de Jest (describe/it/expect/jest)
+    // para las pruebas unitarias. @types/node y @types/jest están en devDependencies.
+    "types": ["node", "jest"],
 
     // Other Outputs
     "sourceMap": true,
@@ -32,8 +33,14 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
+    // Desactivado para permitir que ts-jest elida los imports que solo se usan
+    // como tipos (el spec de la práctica importa Request/Response/IEmployeeRepository
+    // como imports de valor). El código de la app ya usa `import type`, sin regresión.
+    "verbatimModuleSyntax": false,
+    // Desactivado para que ts-jest use el servicio de lenguaje completo con
+    // @typescript/typescript6 (con isolatedModules usaría su transpilador interno,
+    // que carga el compilador nativo de TS7 sin API JS). tsx/esbuild no lo requieren.
+    "isolatedModules": false,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,

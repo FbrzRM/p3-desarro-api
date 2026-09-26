@@ -1,0 +1,156 @@
+/* ============================================================
+   Tema: MODO OSCURO en azules (sin modo claro).
+   Se activa el modo oscuro de Bootstrap (data-bs-theme="dark"
+   en index.html) y se sobreescriben sus variables con una
+   paleta de azules oscuros y acentos pastel.
+   ============================================================ */
+:root,
+[data-bs-theme='dark'] {
+  /* Azules base (muy oscuro -> pastel) */
+  --azul-abismo: #10192b; /* fondo general */
+  --azul-noche: #16223b; /* superficies / tarjetas */
+  --azul-carbon: #1d2c4a; /* cabeceras / navbar */
+  --azul-acero: #3b5488; /* primary */
+  --azul-medio: #5d78b0; /* hover / acentos */
+  --azul-pastel: #9db4dd; /* enlaces / detalles claros */
+  --azul-borde: #2a3c5f; /* bordes */
+
+  /* Overrides de Bootstrap (modo oscuro) */
+  --bs-primary: var(--azul-acero);
+  --bs-primary-rgb: 59, 84, 136;
+  --bs-body-bg: var(--azul-abismo);
+  --bs-body-color: #dbe4f5;
+  --bs-secondary-color: #9fb0cc;
+  --bs-border-color: var(--azul-borde);
+  --bs-emphasis-color: #eef3fc;
+  --bs-link-color: var(--azul-pastel);
+  --bs-link-hover-color: #c2d2f0;
+}
+
+body {
+  background-color: var(--azul-abismo);
+  color: var(--bs-body-color);
+}
+
+/* Barra de navegación */
+.navbar.bg-primary {
+  background-color: var(--azul-carbon) !important;
+  border-bottom: 1px solid var(--azul-borde);
+}
+.navbar .navbar-brand {
+  color: #eef3fc !important;
+}
+
+/* Tarjetas sobre fondo oscuro (más claras que el fondo para contrastar) */
+.card {
+  background-color: #223350;
+  border: 1px solid #35507d;
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+  background-color: #2c4066;
+  color: #eef3fc;
+  font-weight: 600;
+  border-bottom: 1px solid #35507d;
+}
+
+/* Diferenciación por sección: el formulario en un azul más frío/claro... */
+app-employee-form .card {
+  background-color: #26385a;
+  border-color: #3d5c8f;
+}
+app-employee-form .card-header {
+  background-color: #324a76;
+}
+
+/* ...y el listado usa la MISMA paleta que el formulario */
+app-employee-list .card {
+  background-color: #26385a;
+  border-color: #3d5c8f;
+}
+app-employee-list .card-header {
+  background-color: #324a76;
+}
+
+/* Botones */
+.btn-primary {
+  --bs-btn-bg: var(--azul-acero);
+  --bs-btn-border-color: var(--azul-acero);
+  --bs-btn-hover-bg: var(--azul-medio);
+  --bs-btn-hover-border-color: var(--azul-medio);
+  --bs-btn-active-bg: var(--azul-medio);
+  --bs-btn-active-border-color: var(--azul-medio);
+  --bs-btn-color: #fff;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--azul-pastel);
+  --bs-btn-border-color: var(--azul-acero);
+  --bs-btn-hover-bg: var(--azul-acero);
+  --bs-btn-hover-border-color: var(--azul-acero);
+  --bs-btn-hover-color: #fff;
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--azul-borde);
+  --bs-btn-border-color: var(--azul-borde);
+  --bs-btn-color: #dbe4f5;
+  --bs-btn-hover-bg: var(--azul-medio);
+  --bs-btn-hover-border-color: var(--azul-medio);
+  --bs-btn-hover-color: #fff;
+}
+
+.btn-outline-danger {
+  --bs-btn-color: #f3a6a6;
+  --bs-btn-border-color: #a94848;
+  --bs-btn-hover-bg: #a94848;
+  --bs-btn-hover-border-color: #a94848;
+  --bs-btn-hover-color: #fff;
+}
+
+/* Tabla en modo oscuro (misma paleta del formulario) */
+.table {
+  --bs-table-bg: #26385a;
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: #3d5c8f;
+  --bs-table-hover-bg: #324a76;
+  --bs-table-hover-color: #eef3fc;
+}
+
+.table thead th {
+  background-color: #324a76;
+  color: #eef3fc;
+  border-bottom: 2px solid #3d5c8f;
+}
+
+/* Formularios */
+.form-control {
+  background-color: var(--azul-abismo);
+  border-color: var(--azul-borde);
+  color: var(--bs-body-color);
+}
+.form-control:focus {
+  background-color: var(--azul-abismo);
+  color: var(--bs-body-color);
+  border-color: var(--azul-medio);
+  box-shadow: 0 0 0 0.2rem rgba(93, 120, 176, 0.3);
+}
+.form-control::placeholder {
+  color: #7186a8;
+}
+.form-label {
+  color: #c3d0e8;
+}
+
+/* Alertas */
+.alert-danger {
+  background-color: #3a1f24;
+  border-color: #6b2f34;
+  color: #f3b6b6;
+}
+
+.table-actions .btn {
+  margin-right: 0.25rem;
+}

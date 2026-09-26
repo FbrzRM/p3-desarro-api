@@ -1,0 +1,40 @@
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Empleados</span>
+    <span class="badge bg-info" *ngIf="loading">Cargando…</span>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0 align-middle">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Departamento</th>
+          <th class="text-end">Sueldo</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of employees; trackBy: trackById">
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.cargo }}</td>
+          <td>{{ e.departamento }}</td>
+          <td class="text-end">{{ e.sueldo | currency: 'USD' }}</td>
+          <td class="text-center table-actions">
+            <button class="btn btn-sm btn-outline-primary" (click)="edit.emit(e)">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="remove.emit(e)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="!loading && (employees?.length ?? 0) === 0">
+          <td colspan="5" class="text-center text-muted py-4">
+            No hay empleados registrados.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
