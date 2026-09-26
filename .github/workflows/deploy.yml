@@ -1,0 +1,23 @@
+name: Deploy a EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Desplegar por SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/p3-desarro-api
+            git fetch origin main
+            git reset --hard origin/main
+            cd backend
+            npm install
+            pm2 reload ecosystem.config.cjs
