@@ -70,7 +70,7 @@ Puedes verificar el comportamiento perimetral de tu servidor y la correcta inter
 
 ### Petición de Creación Exitosa (`POST`)
 ```http
-POST http://localhost:3000/api/v1/employees
+POST http://3.141.212.108/api/v1/employees
 Content-Type: application/json
 
 {
@@ -83,7 +83,7 @@ Content-Type: application/json
 
 ### Petición de Inyección Inválida (Activación del DTO)
 ```http
-POST http://localhost:3000/api/v1/employees
+POST http://3.141.212.108/api/v1/employees
 Content-Type: application/json
 
 {

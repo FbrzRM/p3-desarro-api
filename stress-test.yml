@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3000"
+  target: "http://3.141.212.108"
   plugins:
     ensure: {}
   phases:
